@@ -13,11 +13,19 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1024
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 
 # include <stdlib.h>
 # include <unistd.h>
+
+int		ft_strlen(char *str);
+int		find_newline(char *str);
+char	*str_nappend(char *str1, char *str2, int n);
+char	*get_line(char *str, int index);
+char	*trim_leftover(char *str, int index);
+
+char	*get_next_line(int fd);
 
 #endif

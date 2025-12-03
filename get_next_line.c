@@ -16,51 +16,40 @@ char	*get_next_line(int fd)
 {
 	static char	*leftover;
 	char		*line;
-	char		*leftcopy;
-	int			lft_len;
+	char		buffer[BUFFER_SIZE];
+	int			bytes_read;
 	int			newline;
 
-	lft_len = ft_strlen(leftover);
-	leftcopy = leftover;
-	if ((newline = find_newline(leftover, lft_len)) >= 0)
-	{
-		line = ft_strdup_len(leftover, newline + 1);
-		leftover = ft_strdup_len(leftover + newline, left_len - newline);
-		free(leftcopy);
-		return (line);
-	}
-	line = ft_strdup_len(leftover, lft_len);
-	if (!line)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-
-
-	line = read_line(fd, leftover);
-}
-
-int	ft_strlen(char *str);
-{
-	int	i;
-
-	i = 0;
-	while (str++)
-		i++;
-	return (i);
-}
-
-char	*ft_strdup_len(char *str, int len)
-{
-	char	*dup;
-	int		i;
-
-	dup = (char *) malloc(sizeof(char) * (len + 1));
-	if (!dup)
+	leftover = read_into_leftover(fd, leftover);
+	if (!leftover)
 		return (NULL);
-	i = 0;
-	while (str)
-	{
-		dup[i] = *str[i];
-		i++;
-	}
-	return (dup);
+	newline = find_newline(leftover);
+	line = get_line(leftover, newline);
+	leftover = trim_leftover(leftover, newline);
+	return (line);
 }
 
+char	*read_into_leftover(int fd, char *leftover)
+{
+	char	*buffer;
+	int		bytes_read;
+	
+	buffer = (char *) malloc(sizeof(char) * BUFFER_SIZE);
+	if (!buffer)
+		return (NULL);
+	while (find_newline(leftover) == -1)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read <= 0)
+			break ;
+		leftover = str_nappend(leftover, buffer, bytes_read);
+		if (!leftover)
+			return (NULL);
+	}
+	free(buffer);
+	return (leftover);
+}
+
+	
