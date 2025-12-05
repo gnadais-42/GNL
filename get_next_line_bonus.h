@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gnadais- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gnadais- <gnadais-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/13 22:59:07 by gnadais-          #+#    #+#             */
-/*   Updated: 2025/11/13 23:02:59 by gnadais-         ###   ########.fr       */
+/*   Created: 2025/12/05 14:07:55 by gnadais-          #+#    #+#             */
+/*   Updated: 2025/12/05 14:07:58 by gnadais-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024

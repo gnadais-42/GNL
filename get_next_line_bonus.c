@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gnadais- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gnadais- <gnadais-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/13 22:58:06 by gnadais-          #+#    #+#             */
-/*   Updated: 2025/11/13 22:58:59 by gnadais-         ###   ########.fr       */
+/*   Created: 2025/12/05 14:07:24 by gnadais-          #+#    #+#             */
+/*   Updated: 2025/12/05 14:07:31 by gnadais-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,24 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*leftover;
+	static char	*fd_leftovers[4096];
+	char		*leftover;
 	char		*line;
 	int			newline;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	leftover = fd_leftovers[fd];
 	leftover = read_into_leftover(fd, leftover);
 	if (!leftover)
+	{
+		fd_leftovers[fd] = NULL;
 		return (NULL);
+	}
 	newline = find_newline(leftover);
 	line = create_line(leftover, newline);
 	leftover = trim_leftover(leftover, newline);
+	fd_leftovers[fd] = leftover;
 	return (line);
 }
 
